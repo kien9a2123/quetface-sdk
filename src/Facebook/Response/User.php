@@ -26,6 +26,16 @@ class User
     }
 
     /**
+     * Get email profile
+     *
+     * @return string|null
+     */
+    public function email()
+    {
+        return $this->get(__FUNCTION__);
+    }
+
+    /**
      * Get about
      *
      * @return string|null
