@@ -43,7 +43,7 @@ class Base extends BaseController
         $response = file_get_contents($url, false, $context);
         $response = json_decode($response);
 
-        if ($response->error) {
+        if (isset($response->error)) {
             throw new QuetfaceException($response->error->message);
         }
 
