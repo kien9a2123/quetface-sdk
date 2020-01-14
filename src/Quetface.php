@@ -3,6 +3,7 @@
 namespace Quetface;
 
 use Quetface\Facebook\Facebook;
+use Quetface\Facebook\Graph;
 use Quetface\Scan\Scan;
 
 class Quetface
@@ -43,7 +44,8 @@ class Quetface
      */
     public function facebook($accessToken = null)
     {
-        return new Facebook($accessToken ?? $this->accessToken);
+        $graph = new Graph($accessToken ?? $this->accessToken);
+        return new Facebook($accessToken ?? $this->accessToken, $graph);
     }
 
     /**

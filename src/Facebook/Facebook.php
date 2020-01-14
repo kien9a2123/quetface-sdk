@@ -2,23 +2,32 @@
 
 namespace Quetface\Facebook;
 
-use Quetface\Facebook\Response\User;
+use Quetface\Facebook\Graph;
 use Quetface\QuetfaceException;
+use Quetface\Facebook\Response\User;
 
 class Facebook extends Base
 {
     /**
+     * 
+     * @var Quetface\Facebook\Graph
+     */
+    protected $graph;
+
+    public function __construct(string $endpointKey, Graph $graph) {
+        parent::__construct($endpointKey);
+        $this->graph = $graph;
+    }
+
+    /**
      * Get information facebook user
      *
      * @param string $id username or uid
-     * 
-     * @throws Quetface\QuetfaceException
-     * 
      * @return Quetface\Facebook\Response\User
      */
     public function user(string $id)
     {
-        $response = $this->request($id);
+        $response = $this->graph->createNode($id)->get();
         return new User($response);
     }
 
