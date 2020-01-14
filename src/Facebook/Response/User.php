@@ -150,4 +150,9 @@ class User
     {
         return $this->response->$attr ?? null;
     }
+
+    public function __toString()
+    {
+        return json_encode($this->response);
+    }
 }
