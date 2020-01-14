@@ -1,0 +1,16 @@
+{
+    "name": "quetface/quetface-sdk",
+    "description": "SDK quetface",
+    "require": {
+        "php": ">=7.1"
+    },
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "boytunghc@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Quetface\\": "src/"}
+    }
+}
