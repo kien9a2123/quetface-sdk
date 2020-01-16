@@ -2,8 +2,9 @@
 
 namespace Quetface\Facebook;
 
-use Quetface\Base as BaseController;
+use Quetface\JsonResponse;
 use Quetface\QuetfaceException;
+use Quetface\Base as BaseController;
 
 class Base extends BaseController
 {
@@ -41,12 +42,11 @@ class Base extends BaseController
         $url .= '&' . $params;
 
         $response = file_get_contents($url, false, $context);
-        $response = json_decode($response);
 
         if (isset($response->error)) {
             throw new QuetfaceException($response->error->message);
         }
 
-        return $response;
+        return new JsonResponse($response);
     }
 }

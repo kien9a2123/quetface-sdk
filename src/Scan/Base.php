@@ -2,8 +2,9 @@
 
 namespace Quetface\Scan;
 
-use Quetface\Base as BaseController;
+use Quetface\JsonResponse;
 use Quetface\QuetfaceException;
+use Quetface\Base as BaseController;
 
 class Base extends BaseController
 {
@@ -44,6 +45,6 @@ class Base extends BaseController
             throw new QuetfaceException($response->message);
         }
 
-        return $response;
+        return new JsonResponse($response);
     }
 }
