@@ -5,6 +5,7 @@ namespace Quetface;
 use Quetface\Facebook\Facebook;
 use Quetface\Facebook\Graph;
 use Quetface\Scan\Scan;
+use Quetface\SpeedSms\SpeedSms;
 
 class Quetface
 {
@@ -29,11 +30,24 @@ class Quetface
      */
     protected $accessToken;
 
-    public function __construct($options = null) {
+    /**
+     * Access key for SpeedSMS
+     *
+     * @var string
+     */
+    protected $speedSmsKey;
+
+    /**
+     * Mapping options key
+     *
+     * @param array $options
+     */
+    public function __construct(array $options = []) {
 
         $this->options     = $options;
         $this->accessToken = $options['access-token'] ?? '';
         $this->scanKey     = $options['scan-key'] ?? '';
+        $this->speedSmsKey = $options['sms-key'] ?? '';
     }
 
     /**
@@ -57,5 +71,16 @@ class Quetface
     public function scan($scanKey = null)
     {
         return new Scan($scanKey ?? $this->scanKey);
+    }
+
+    /**
+     * Create SpeedSMS instance
+     *
+     * @param string $accessKey
+     * @return Quetface\SpeedSms\SpeedSms
+     */
+    public function sms($accessKey = null)
+    {
+        return new SpeedSms($accessKey ?? $this->speedSmsKey);
     }
 }
