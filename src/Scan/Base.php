@@ -47,4 +47,20 @@ class Base extends BaseController
 
         return new JsonResponse($response);
     }
+
+    public function customRequest(string $link, array $httpParams = [])
+    {
+        $httpParams = array_merge($httpParams, ['ignore_errors' => true]);
+        $context = $this->buildHttpContext($httpParams);
+
+        $url = trim($link, '/') .'/'. trim($link) . "?key=$this->endpointKey";
+
+        $response = file_get_contents($url, false, $context);
+
+        if (isset($response->success) && $response->success == 'error') {
+            throw new QuetfaceException($response->message);
+        }
+
+        return new JsonResponse($response);
+    }
 }
