@@ -2,7 +2,9 @@
 
 namespace Quetface\Scan;
 
+use Quetface\Scan\Response\PhoneToUidConverter;
 use Quetface\Scan\Response\Scanned;
+use Quetface\Scan\Response\UidToPhoneConverter;
 
 class Scan extends Base
 {
@@ -16,7 +18,7 @@ class Scan extends Base
     {
         $response = $this->request('phone/info/web', ['number' => $number]);
 
-        return new Scanned($response)
+        return new Scanned($response);
     }
 
     /**
@@ -27,9 +29,60 @@ class Scan extends Base
      */
     public function uid(string $uid)
     {
-        $response = $this->request('phone/info/web', ['uid' => $uid]);
+        $response = $this->request('/phone/info/web', ['uid' => $uid]);
 
         return new Scanned($response);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $content
+     * @return Quetface\Scan\Response\UidToPhoneConverter
+     */
+    public function converterUidToPhone(string $listUid)
+    {
+        $response = $this->sendContent('/convert/uid-to-phone', $listUid);
+        return new UidToPhoneConverter($response);
+    }
+
+    /**
+     * support phone number bellow
+     * +84978227691
+     * 84978227691
+     * 0978227691
+     * 0978 227 691
+     * 0978.227.691
+     *
+     * @param string $listPhone
+     * @return void
+     */
+    public function converterPhoneToUid(string $listPhone)
+    {
+        $response = $this->sendContent('/convert/phone-to-uid', $listPhone);
+        return new PhoneToUidConverter($response);
+    }
+
+    /**
+     * Send file content to endpoint
+     *
+     * @param string $link
+     * @param mixed $content
+     * @return Quetface\JsonResponse
+     */
+    protected function sendContent(string $link, $content)
+    {
+        $httpHeader =$this->buildFileHttp($content);
+        return $this->customRequest($link, $httpHeader);
+    }
+
+    /**
+     * Create new callback quetface instance
+     *
+     * @return Quetface\Scan\ScanCallback;
+     */
+    public static function callback()
+    {
+        return new ScanCallback;
+    }
 }
