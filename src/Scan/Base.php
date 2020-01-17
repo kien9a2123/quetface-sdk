@@ -27,7 +27,7 @@ class Base extends BaseController
      *
      * @param string $link
      * @param array $params
-     * @return mixed
+     * @return Quetface\JsonResponse
      * @throws Quetface\QuetfaceException
      */
     public function request(string $link, array $params = [])
@@ -48,6 +48,13 @@ class Base extends BaseController
         return new JsonResponse($response);
     }
 
+    /**
+     * Create custom request to Quetface API
+     *
+     * @param string $link
+     * @param array $httpParams
+     * @return Quetface\JsonResponse
+     */
     public function customRequest(string $link, array $httpParams = [])
     {
         $httpParams = array_merge($httpParams, ['ignore_errors' => true]);
@@ -62,5 +69,30 @@ class Base extends BaseController
         }
 
         return new JsonResponse($response);
+    }
+
+    /**
+     * Build file http param
+     *
+     * @param mixed $fileContent
+     * @param string $formField
+     * @param string $filename
+     * @return array http header
+     */
+    protected function buildFileHttp($fileContent, string $formField = 'file', string $filename = 'file')
+    {
+        $boundary = '--------------------------'.microtime(true);
+
+        $content =  "--".$boundary."\r\n".
+            "Content-Disposition: form-data; name=\"".$formField."\"; filename=\"".basename($filename)."\"\r\n".
+            "Content-Type: application/zip\r\n\r\n".
+            $fileContent."\r\n";
+        $content .= "--".$boundary."--\r\n";
+
+        return [
+            'method' => 'POST',
+            'header' => 'Content-Type: multipart/form-data; boundary='.$boundary,
+            'content'=> $content
+        ];
     }
 }
