@@ -4,6 +4,7 @@ namespace Quetface\SpeedSms;
 
 use Quetface\QuetfaceException;
 use Quetface\SpeedSms\Response\Sms;
+use Quetface\SpeedSms\Response\SmsCheck;
 use Quetface\SpeedSms\Response\User;
 
 class SpeedSms extends Base
@@ -140,6 +141,18 @@ class SpeedSms extends Base
     }
 
     /**
+     * Check list sms status from transaction ID
+     *
+     * @param string $tranId
+     * @return Quetface\SpeedSms\Response\SmsCheck
+     */
+    public function checkSms(string $tranId)
+    {
+        $response = $this->request('sms/status/' . $tranId, [], 'GET');
+        return new SmsCheck($response);
+    }
+
+    /**
      * Check a sms message
      *
      * @param string $message
@@ -162,5 +175,10 @@ class SpeedSms extends Base
         if ($length > 160) {
             throw new QuetfaceException("Message should less than or equal 160 character length", 1);
         }
+    }
+
+    public static function callback()
+    {
+        return new SpeedSmsCallback;
     }
 }
