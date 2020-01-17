@@ -16,7 +16,7 @@ class Scan extends Base
     {
         $response = $this->request('phone/info/web', ['number' => $number]);
 
-        return !$this->isFailed($response) ? new Scanned($response) : null;
+        return new Scanned($response)
     }
 
     /**
@@ -29,25 +29,7 @@ class Scan extends Base
     {
         $response = $this->request('phone/info/web', ['uid' => $uid]);
 
-        return !$this->isFailed($response) ? new Scanned($response) : null;
+        return new Scanned($response);
     }
 
-    /**
-     * Check request to quetface api failed or not
-     *
-     * @param mixed $response
-     * @return boolean
-     */
-    public function isFailed($response)
-    {
-        if (isset($response->status) && $response->status === 'fail') {
-            return true;
-        }
-
-        if (isset($response->success) && $response->success === 'error') {
-            return true;
-        }
-
-        return false;
-    }
 }
