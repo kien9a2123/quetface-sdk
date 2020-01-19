@@ -20,6 +20,11 @@ class HasJsonResponse
         }
     }
 
+    public function all()
+    {
+        return json_decode($this->__toString(), 1);
+    }
+
     public function __get(string $name)
     {
         return $this->response->$name ?? null;
@@ -27,6 +32,10 @@ class HasJsonResponse
 
     public function __toString()
     {
+        if (method_exists($this->response, '__toString')) {
+            return $this->response->__toString();
+        }
+
         return json_encode($this->response);
     }
 }
