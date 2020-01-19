@@ -4,6 +4,8 @@ namespace Quetface;
 
 abstract class Base
 {
+    protected $endpoint;
+
     protected $endpointKey;
 
     public function __construct(string $endpointKey) {
@@ -38,5 +40,27 @@ abstract class Base
     protected function buildHttpContext(array $params = [])
     {
         return stream_context_create(['http' => $params]);
+    }
+
+    /**
+     * Set endpoint to url
+     *
+     * @param string $url
+     * @return void
+     */
+    protected function setEndpoint(string $url)
+    {
+        $this->endpoint = $url;
+    }
+
+    /**
+     * Set access key for endpoint
+     *
+     * @param string $key
+     * @return void
+     */
+    protected function setEndpointKey(string $key)
+    {
+        $this->endpointKey = $key
     }
 }
