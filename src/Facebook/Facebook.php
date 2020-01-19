@@ -27,7 +27,7 @@ class Facebook extends Base
      */
     public function user(string $id)
     {
-        $response = $this->graph->createNode($id)->get();
+        $response = $this->graph->node($id)->get();
         return new User($response);
     }
 
