@@ -19,7 +19,7 @@ class Scanned extends HasJsonResponse
      */
     public function getPhone()
     {
-        return $this->data->number ?? null;
+        return $this->response->number ?? null;
     }
 
     /**
@@ -29,7 +29,7 @@ class Scanned extends HasJsonResponse
      */
     public function getLinkFacebook()
     {
-        return $this->data->linkFb ?? null;
+        return $this->response->linkFb ?? null;
     }
 
     /**
