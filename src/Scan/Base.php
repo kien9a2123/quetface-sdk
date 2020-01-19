@@ -39,13 +39,13 @@ class Base extends BaseController
         $url .= "?key=$this->endpointKey&$params";
 
         $response = file_get_contents($url, false, $context);
-        $response = json_decode($response);
+        $response = new JsonResponse($response);
 
         if (isset($response->success) && $response->success == 'error') {
             throw new QuetfaceException($response->message);
         }
 
-        return new JsonResponse($response);
+        return $response;
     }
 
     /**

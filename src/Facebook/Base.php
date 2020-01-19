@@ -42,11 +42,12 @@ class Base extends BaseController
         $url .= '&' . $params;
 
         $response = file_get_contents($url, false, $context);
+        $response = new JsonResponse($response);
 
         if (isset($response->error)) {
             throw new QuetfaceException($response->error->message);
         }
 
-        return new JsonResponse($response);
+        return $response;
     }
 }
