@@ -2,27 +2,14 @@
 
 namespace Quetface\Scan\Response;
 
-use Quetface\QuetfaceException;
+use Quetface\HasJsonResponse;
+use Quetface\JsonResponse;
 
-class Scanned
+class Scanned extends HasJsonResponse
 {
-    /**
-     * Response from quetface API
-     *
-     * @var mixed
-     */
-    protected $response;
-
-    /**
-     * Payload from response quetface API
-     *
-     * @var mixed
-     */
-    protected $data;
-
-    public function __construct($response) {
-        $this->response = $response;
-        $this->data     = $response->data ?? null;
+    public function __construct(JsonResponse $jsonResponse) {
+        $this->checkResponse($jsonResponse);
+        $this->response = $jsonResponse->data;
     }
 
     /**
