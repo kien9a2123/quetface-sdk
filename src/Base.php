@@ -61,6 +61,6 @@ abstract class Base
      */
     protected function setEndpointKey(string $key)
     {
-        $this->endpointKey = $key
+        $this->endpointKey = $key;
     }
 }
