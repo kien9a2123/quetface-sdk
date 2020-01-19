@@ -5,13 +5,8 @@ namespace Quetface\SpeedSms\Response;
 use Quetface\HasJsonResponse;
 use Quetface\JsonResponse;
 
-class SmsCheck extends HasJsonResponse
+class SmsCheck extends SpeedSmsResponse
 {
-    public function __construct(JsonResponse $jsonResponse) {
-        $this->checkResponse($jsonResponse);
-        $this->response = $this->response->data;
-    }
-
     /**
      * Get phone, status in position key
      *

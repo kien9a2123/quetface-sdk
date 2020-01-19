@@ -4,10 +4,8 @@ namespace Quetface\SpeedSms\Response;
 
 use Quetface\HasJsonResponse;
 
-class SpeedSmsResponse
+class SpeedSmsResponse extends HasJsonResponse
 {
-    use HasJsonResponse;
-
     public function __construct($response) {
         parent::__construct($response);
         $this->response = $this->response->data;
