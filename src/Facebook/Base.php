@@ -30,7 +30,7 @@ class Base extends BaseController
      * 
      * @throws Quetface\QuetfaceException
      * 
-     * @return mixed
+     * @return Quetface\JsonResponse
      */
     protected function request(string $link, array $params = [])
     {

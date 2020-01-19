@@ -47,14 +47,31 @@ class Graph extends Base
      * Get content from Graph Api
      *
      * @param array $fields
+     * @param array $params http query
      * @return mixed
      */
-    public function get(array $fields = [])
+    public function get(array $fields = [], array $params = [])
     {
         if (isset($this->edge)) {
-            return $this->edge->get($fields);
+            return $this->edge->get($fields, $params);
         }
 
-        return $this->node->get($fields);
+        return $this->node->get($fields, $params);
+    }
+
+    /**
+     * Clear old node or edge or all
+     *
+     * @param string $type
+     * @return void
+     */
+    public function clear(string $type = '*')
+    {
+        if ($type === 'node' || $type === 'edge') {
+            unset($this->$type);
+        } elseif ($type === '*') {
+            $this->clear('node');
+            $this->clear('edge');
+        }
     }
 }

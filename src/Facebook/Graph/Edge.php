@@ -51,14 +51,13 @@ class Edge extends Base
      *  Get edge response from facebook graph API
      *
      * @param array $fields
-     * @return mixed
+     * @param array $params http query params
+     * @return Quetface\JsonResponse
      */
-    public function get(array $fields = [])
+    public function get(array $fields = [], array $params = [])
     {
-        $link   = $this->node . '/' . $this->edge;
-        $fields = implode(',', $fields);
- 
-        return $this->request($link, ['fields' => $fields]);
+        $params = array_merge(['fields' => implode(',', $fields)], $params);
+        return $this->request($this->node . '/' . $this->edge, $params);
     }
 
     /**

@@ -23,7 +23,7 @@ class Node extends Base
      */
     public function from(string $node)
     {
-        if (! preg_match('/^[a-zA-Z0-9]+$/', $node)) {
+        if (! preg_match('/^[a-zA-Z0-9._]+$/', $node)) {
             throw new QuetfaceException("Node name is invalid");
         }
 
@@ -36,17 +36,18 @@ class Node extends Base
      * Get node response from facebook graph API
      *
      * @param array $fields
-     * @return mixed
+     * @param array $params http query params
+     * @return Quetface\JsonResponse
      */
-    public function get(array $fields = [])
+    public function get(array $fields = [], array $params = [])
     {
         if (empty($this->node) && $this->node !== 0) {
             throw new QuetfaceException('Node name is empty');
         }
 
-        $fields = implode(',', $fields);
+        $params = array_merge(['fields' => implode(',', $fields)], $params);
 
-        return $this->request($this->node, ['fields' => $fields]);
+        return $this->request($this->node, $params);
     }
 
     /**

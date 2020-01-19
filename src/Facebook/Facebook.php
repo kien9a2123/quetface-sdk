@@ -32,6 +32,16 @@ class Facebook extends Base
     }
 
     /**
+     * Get graph instance
+     *
+     * @return Quetface\Facebook\Graph
+     */
+    public function graph()
+    {
+        return $this->graph;
+    }
+
+    /**
      * Get user id or username form url facebook given
      *
      * @param string $url
