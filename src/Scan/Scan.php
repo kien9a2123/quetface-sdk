@@ -5,6 +5,7 @@ namespace Quetface\Scan;
 use Quetface\Scan\Response\PhoneToUidConverter;
 use Quetface\Scan\Response\Scanned;
 use Quetface\Scan\Response\UidToPhoneConverter;
+use Quetface\Scan\Response\UidToPhoneUidConverter;
 
 class Scan extends Base
 {
@@ -35,7 +36,7 @@ class Scan extends Base
     }
 
     /**
-     * Undocumented function
+     * Converter uid to phone
      *
      * @param string $content
      * @return Quetface\Scan\Response\UidToPhoneConverter
@@ -47,6 +48,7 @@ class Scan extends Base
     }
 
     /**
+     * Converter phone to uid
      * support phone number bellow
      * +84978227691
      * 84978227691
@@ -61,6 +63,18 @@ class Scan extends Base
     {
         $response = $this->sendContent('/convert/phone-to-uid', $listPhone);
         return new PhoneToUidConverter($response);
+    }
+
+    /**
+     * Converter Uid To Phone-Uid
+     *
+     * @param string $listUid
+     * @return  Quetface\Scan\Response\UidToPhoneUidConverter
+     */
+    public function converterUidToPhoneUid(string $listUid)
+    {
+        $response = $this->sendContent('convert/uid-to-uid-and-phone', $listUid);
+        return new UidToPhoneUidConverter($response);
     }
 
     /**
