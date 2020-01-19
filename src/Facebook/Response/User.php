@@ -2,134 +2,25 @@
 
 namespace Quetface\Facebook\Response;
 
-class User
+use Quetface\HasJsonResponse;
+
+/**
+ * @method string|null id() Get id profile
+ * @method string|null email() Get email profile
+ * @method string|null about() Get about
+ * @method string|null birthday() Get birthday
+ * @method string|null name() Get name
+ * @method string|null username() Get username
+ * @method string|null firstName() Get first name
+ * @method string|null lastName() Get last name
+ * @method string|null gender() Get gender
+ * @method array|null languages() Get language from user
+ * @method array|null work() Get place has worked from user
+ * @method mixed|null location() Get location from user
+ * @method string|null link() Get link profile
+ */
+class User extends HasJsonResponse
 {
-    /**
-     * Response from request
-     *
-     * @var mixed
-     */
-    protected $response;
-
-    public function __construct($response) {
-        $this->response = $response;
-    }
-
-    /**
-     * Get id profile
-     *
-     * @return string|null
-     */
-    public function id()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get email profile
-     *
-     * @return string|null
-     */
-    public function email()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get about
-     *
-     * @return string|null
-     */
-    public function about()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get birthday
-     *
-     * @return string|null
-     */
-    public function birthday()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get name
-     *
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get username
-     *
-     * @return string|null
-     */
-    public function username()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get first name
-     *
-     * @return string|null
-     */
-    public function firstName()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get last name
-     *
-     * @return string|null
-     */
-    public function lastName()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get gender
-     *
-     * @return string|null
-     */
-    public function gender()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get language from user 
-     *
-     * @return array|null
-     */
-    public function languages()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    public function location()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
-    /**
-     * Get link profile
-     *
-     * @return string|null
-     */
-    public function link()
-    {
-        return $this->get(__FUNCTION__);
-    }
-
     /**
      * Check user exist or not
      *
@@ -138,16 +29,6 @@ class User
     public function exist()
     {
         return $this->get('id') ? true : false;
-    }
-
-    /**
-     * Get all attribute form user
-     *
-     * @return mixed
-     */
-    public function all()
-    {
-        return $this->response;
     }
 
     /**
@@ -161,8 +42,8 @@ class User
         return $this->response->$attr ?? null;
     }
 
-    public function __toString()
+    public function __call($method, $args)
     {
-        return json_encode($this->response);
+        return $this->get($method);
     }
 }
